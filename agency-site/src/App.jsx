@@ -7,7 +7,7 @@ import {
 } from 'lucide-react';
 
 // --- קונפיגורציה ---
-const PHONE_NUMBER = "972500000000"; // שנה למספר שלך
+const PHONE_NUMBER = "972500000000"; // וודא שהמספר שלך מעודכן כאן
 const WHATSAPP_URL = `https://wa.me/${PHONE_NUMBER}?text=היי אופק ותומר, אשמח לשמוע פרטים על בניית אתר/בוט`;
 
 // --- רכיבי עזר ---
@@ -18,7 +18,6 @@ const Badge = ({ children, color = "indigo" }) => (
   </span>
 );
 
-// כרטיס מייסד מעודכן עם תמונה!
 const FounderCard = ({ name, role, location, degree, school, image, delay }) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
@@ -40,7 +39,6 @@ const FounderCard = ({ name, role, location, degree, school, image, delay }) => 
               </div>
             )}
           </div>
-          {/* נקודה ירוקה (Online) */}
           <div className="absolute bottom-1 right-1 w-4 h-4 bg-green-500 border-2 border-slate-900 rounded-full"></div>
         </div>
         
@@ -243,14 +241,31 @@ const App = () => {
         </div>
       </nav>
 
-      {/* Hero Section */}
+      {/* Hero Section - SWAPPED & MOBILE FIXED */}
       <header className="relative z-10 pt-32 md:pt-48 pb-20 md:pb-32 px-6">
         <div className="container mx-auto grid lg:grid-cols-2 gap-12 md:gap-20 items-center">
+          
+          {/* שינוי עיצובי: 
+             במחשב (lg): הטור הזה מופיע שני ב-HTML אבל בגלל ה-RTL הוא בצד שמאל.
+             במובייל: הוספתי order-last לקוד כדי שהטקסט יופיע קודם.
+          */}
+
+          {/* Code Visual (עכשיו ראשון ב-HTML כדי להיות בימין ב-RTL) */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="relative order-last lg:order-none"
+          >
+             <CodeTerminal />
+          </motion.div>
+
+          {/* Text Content (עכשיו שני ב-HTML כדי להיות בשמאל ב-RTL) */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }} // מגיע משמאל
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-center lg:text-right"
+            className="text-center lg:text-left" // שינוי יישור טקסט לשמאל
           >
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-indigo-500/30 bg-indigo-500/10 text-indigo-300 text-sm font-medium mb-6 md:mb-8">
               <span className="relative flex h-2 w-2">
@@ -281,14 +296,6 @@ const App = () => {
             </div>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="relative lg:order-last order-first"
-          >
-             <CodeTerminal />
-          </motion.div>
         </div>
       </header>
 
